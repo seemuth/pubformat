@@ -1,6 +1,6 @@
 MAINOUT = convertgs2wp.html
-HTMLPREFILES = header.html
-HTMLPOSTFILES = main.html footer.html
+HTMLPREFILES = header.html main.html
+HTMLPOSTFILES = footer.html
 HTMLFILES = $(HTMLPREFILES) $(HTMLPOSTFILES)
 JSFILES = import.js export.js
 
