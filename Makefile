@@ -20,3 +20,7 @@ $(MAINOUT) : $(HTMLFILES) $(MJSFILES)
 .PHONY: clean
 clean:
 	-rm -f $(MAINOUT) $(MJSFILES)
+
+.PHONY: dev
+dev: all
+	cp $(MAINOUT) /tmp/
