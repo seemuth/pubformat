@@ -4,8 +4,8 @@ HTMLPOSTFILES := postscript.html footer.html
 HTMLFILES := $(HTMLPREFILES) $(HTMLPOSTFILES)
 JSFILES := import.js export.js main.js
 
-INPUTFILES := $(HTMLFILES) $(MJSFILES)
 MJSFILES := $(JSFILES:js=mjs)
+INPUTFILES := $(HTMLFILES) $(MJSFILES)
 
 MINIFY := yui-compressor
 
