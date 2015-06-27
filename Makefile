@@ -12,9 +12,7 @@ MINIFY = yui-compressor
 all: $(MAINOUT)
 
 $(MAINOUT) : $(HTMLFILES) $(MJSFILES)
-	cat $(HTMLPREFILES) > $(MAINOUT)
-	cat $(MJSFILES) >> $(MAINOUT)
-	cat $(HTMLPOSTFILES) >> $(MAINOUT)
+	cat $(HTMLPREFILES) $(MJSFILES) $(HTMLPOSTFILES) > $(MAINOUT)
 
 %.mjs : %.js
 	$(MINIFY) $< > $@
