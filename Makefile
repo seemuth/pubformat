@@ -1,6 +1,6 @@
 MAINOUT := convertgs2wp.html
 HTMLPREFILES := header.html main.html prescript.html
-HTMLPOSTFILES := postscript.html footer.html
+HTMLPOSTFILES := postscript.html version.html footer.html
 HTMLFILES := $(HTMLPREFILES) $(HTMLPOSTFILES)
 JSFILES := import.js export.js main.js
 
