@@ -2,7 +2,7 @@ MAINOUT = convertgs2wp.html
 HTMLPREFILES = header.html main.html prescript.html
 HTMLPOSTFILES = postscript.html footer.html
 HTMLFILES = $(HTMLPREFILES) $(HTMLPOSTFILES)
-JSFILES = import.js export.js
+JSFILES = import.js export.js main.js
 
 MJSFILES = $(JSFILES:js=mjs)
 
