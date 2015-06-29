@@ -28,6 +28,6 @@ p.version { font-size: 75%; color: grey; }
 </div>
 <script>
 function valuefilter(b){var a=[[/---/g,"&mdash;"],[/--/g,"&ndash;"]];var g=b.indexOf("{");var f=b.indexOf("}");if((g>=0)&&(f>g)){b=b.substring(g+1,f)}for(var e=0;e<a.length;e++){var d=a[e][0];var c=a[e][1];b=b.replace(d,c)}return b}function importbib(e){var f=[];var a={};var h=e.split("\n");for(var c=0;c<h.length;c++){var j=h[c].trim();var d=j.indexOf("=");if((d<0)&&(j.indexOf("}")>=0)){f.push(a);a={}}else{if(d>0){var b=j.substr(0,d);var g=valuefilter(j.substr(d+1));a[b]=g}}}return f}function pubsortcompare(d,c){if(d.year>c.year){return -1}else{if(d.year==c.year){if(d.title<c.title){return -1}else{if(d.title==c.title){return 0}else{return 1}}}else{return 1}}};function pubtopost(a){var b=[];b.push(a.author);b.push("<strong>"+a.title+"</strong>");b.push("<em>"+a.booktitle+"</em>");b.push("("+a.year+")");return b.join(". ")}function exportpost(c){var a=[];a.push("<ul>");for(var b=0;b<c.length;b++){a.push("<li>"+pubtopost(c[b])+"</li>")}a.push("</ul>");return a.join("\n")};function datainchange(c){var b=document.getElementById("dataout");var a=importbib(c.value);a.sort(pubsortcompare);b.value=exportpost(a)};</script>
-<p class="version">Version v0.0.1</p>
+<p class="version">Version v0.1.0</p>
 </body>
 </html>
