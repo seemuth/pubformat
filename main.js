@@ -3,6 +3,8 @@ function datainchange(inbox)
     var outbox = document.getElementById('dataout');
     var publications = importbib(inbox.value);
 
+    publications.sort(pubsortcompare);
+
     outbox.value = '';
 
     for (var i = 0; i < publications.length; i++) {
