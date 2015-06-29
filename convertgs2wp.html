@@ -27,7 +27,7 @@ p.version { font-size: 75%; color: grey; }
     </div>
 </div>
 <script>
-function datainchange(b){var a=document.getElementById("dataout");a.value=b.value};</script>
+function valuefilter(b){var a=[[/---/g,"&mdash;"],[/--/g,"&ndash;"]];for(var e=0;e<a.length;e++){var d=a[e][0];var c=a[e][1];b=b.replace(d,c)}return b}function importbib(e){var f=[];var a={};var h=e.split("\n");for(var c=0;c<h.length;c++){var j=h[c].trim();var d=j.indexOf("=");if((d<0)&&(j.indexOf("}")>=0)){f.push(a);a={}}else{if(d>0){var b=j.substr(0,d);var g=valuefilter(j.substr(d+1));a[b]=g}}}return f};function datainchange(g){var f=document.getElementById("dataout");var e=importbib(g.value);f.value="";for(var b=0;b<e.length;b++){var c=e[b];var d=[];for(var a in c){d.push(a+"="+c[a])}f.value+=d.join(" ")+"\n\n"}f.value=f.value.trim()};</script>
 <p class="version">Version v0.0.1</p>
 </body>
 </html>
