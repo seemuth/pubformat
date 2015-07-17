@@ -2,9 +2,18 @@
 function pubtopost(pubdata)
 {
     var parts = [];
+    var collection = null;
+
+    if ((collection == null) && (pubdata.booktitle != undefined)) {
+        collection = pubdata.booktitle;
+
+    } else if ((collection == null) && (pubdata.journal != undefined)) {
+        collection = pubdata.journal;
+    }
+
     parts.push(pubdata.author);
     parts.push('<strong>' + pubdata.title + '</strong>');
-    parts.push('<em>' + pubdata.booktitle + '</em>');
+    parts.push('<em>' + collection + '</em>');
     parts.push('(' + pubdata.year + ')');
 
     return parts.join('. ');
