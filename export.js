@@ -1,3 +1,11 @@
+// splitauthors splits a list of author names into semicolon-delimited list
+function splitauthors(authorstring)
+{
+    var authors = authorstring.split(' and ');
+    return authors.join('; ');
+}
+
+
 // pubtopost formats a single publication
 function pubtopost(pubdata)
 {
@@ -11,7 +19,7 @@ function pubtopost(pubdata)
         collection = pubdata.journal;
     }
 
-    parts.push(pubdata.author);
+    parts.push(splitauthors(pubdata.author));
     parts.push('<strong>' + pubdata.title + '</strong>');
     parts.push('<em>' + collection + '</em>');
     parts.push('(' + pubdata.year + ')');
