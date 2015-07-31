@@ -56,9 +56,7 @@ function importbib(bib)
 // pubsortcompare is used to sort publications by year, then title
 function pubsortcompare(a, b)
 {
-    if (a.year > b.year) {
-        return -1;
-    } else if (a.year == b.year) {
+    if (a.year == b.year) {
 
         if (a.title < b.title) {
             return -1;
@@ -68,6 +66,15 @@ function pubsortcompare(a, b)
         } else {
             return 1;
         }
+
+    } else if (a.year == undefined) {
+        return 1;
+
+    } else if (b.year == undefined) {
+        return -1;
+
+    } else if (a.year > b.year) {
+        return -1;
 
     } else {
         return 1;
