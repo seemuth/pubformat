@@ -19,6 +19,7 @@ function pubtopost(pubdata)
         collection = pubdata.journal;
     }
 
+    var comment = '<!--' + pubdata['@'] + '-->';
     parts.push(splitauthors(pubdata.author));
     parts.push('<strong>' + pubdata.title + '</strong>');
 
@@ -30,7 +31,7 @@ function pubtopost(pubdata)
         parts.push('(' + pubdata.year + ')');
     }
 
-    return parts.join('. ');
+    return comment + parts.join('. ');
 }
 
 

@@ -46,6 +46,11 @@ function importbib(bib)
             var k = line.substr(0, eqpos);
             var v = valuefilter(line.substr(eqpos+1));
             currentpub[k] = v;
+
+        } else if (line.substr(0, 1) == '@') {
+            var k = '@';
+            var v = line.replace(/^@([^{]+){.*$/, '$1');
+            currentpub[k] = v;
         }
     }
 
