@@ -7,8 +7,48 @@ function valuefilter(v)
     v = v.replace(/^{(.*)},?$/, '$1');
 
     var reps = [
+        ['/\\%/g', '%'],
+        [/\\&/g, '&amp;'],
         [/---/g, '&mdash;'],
-        [/--/g, '&ndash;']
+        [/--/g, '&ndash;'],
+        [/"/g, '&quot;'],
+        [/“/g, '&ldquo;'],
+        [/“/g, '&ldquo;'],
+        [/‘/g, '&rsquo;'],
+        [/’/g, '&rsquo;'],
+
+        [/{?\\(["'`~^])\\*(({[^}]+})|[^{])}?/g,
+            function(fullmatch, mark, sub) {
+                var debug = false;
+                var debug_prefix = '';
+                var debug_suffix = '';
+
+                if (debug) {
+                    debug_prefix = '<span class="pub-special">_';
+                    debug_suffix = '_</span>';
+                }
+
+                var nicesub = sub.replace(/^{(.*)},?$/, '$1');
+
+                var marks = ['"', "'", '`', '~', '^'];
+                var marknames = ['uml', 'acute', 'grave', 'tilde', 'circ'];
+                var i = marks.indexOf(mark);
+                if (i < 0) {
+                    // Invalid mark!
+                    return sub;
+                }
+                var markname = marknames[i];
+
+                return [
+                    debug_prefix,
+                    '&',
+                    nicesub,
+                    markname,
+                    ';',
+                    debug_suffix,
+                ].join('');
+            }
+        ],
     ];
 
     for (var i = 0; i < reps.length; i++) {
