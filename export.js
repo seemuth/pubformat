@@ -44,13 +44,13 @@ function pubtopost(pubdata)
 function exportpost(publist)
 {
     var ret = [];
-    ret.push('<ul class="publications">');
+    ret.push('<ol class="publications">');
 
     for (var i = 0; i < publist.length; i++) {
         ret.push('<li>' + pubtopost(publist[i]) + '</li>');
     }
 
-    ret.push('</ul>');
+    ret.push('</ol>');
 
     return ret.join('\n');
 }
