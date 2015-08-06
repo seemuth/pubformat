@@ -31,6 +31,10 @@ function pubtopost(pubdata)
         parts.push('(' + pubdata.year + ')');
     }
 
+    if (pubdata.note != undefined) {
+        parts.push('<span class="pub-note">' + pubdata.note + '</span>');
+    }
+
     return comment + parts.join('. ');
 }
 
