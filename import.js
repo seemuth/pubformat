@@ -4,17 +4,12 @@
 // replace -- with &ndash;
 function valuefilter(v)
 {
+    v = v.replace(/^{(.*)},?$/, '$1');
+
     var reps = [
         [/---/g, '&mdash;'],
         [/--/g, '&ndash;']
     ];
-
-    var brace1 = v.indexOf('{');
-    var brace2 = v.indexOf('}');
-
-    if ((brace1 >= 0) && (brace2 > brace1)) {
-        v = v.substring(brace1+1, brace2);
-    }
 
     for (var i = 0; i < reps.length; i++) {
         var search = reps[i][0];
