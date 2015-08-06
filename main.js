@@ -66,14 +66,58 @@ function setstatus(message)
 
 function datainchange(inbox)
 {
+    var pubtypes = {
+            conference: [
+                'inproceedings',
+            ],
+            journal: [
+                'article',
+                'incollection',
+            ],
+            other: [],
+    };
+
     var outbox = document.getElementById('dataout');
     var publications = importbib(inbox.value);
+    var pubgroups = {};
+
+    for (var k in pubtypes) {
+        pubgroups[k] = [];
+    }
 
     outbox.value = '';
 
     publications.sort(pubsortcompare);
 
-    outbox.value = exportpost(publications);
+    for (var i in publications) {
+        var pub = publications[i];
+        var ingroup = 'other';
+        for (var k in pubtypes) {
+            if (pubtypes[k].indexOf(pub['@']) >= 0) {
+                ingroup = k;
+                break;
+            }
+        }
+
+        pubgroups[k].push(pub);
+    }
+
+    var sections = [];
+
+    if (pubgroups.conference.length > 0) {
+        sections.push('<h2>Conference Papers</h2>');
+        sections.push(exportpost(pubgroups.conference));
+    }
+    if (pubgroups.journal.length > 0) {
+        sections.push('<h2>Journal Articles</h2>');
+        sections.push(exportpost(pubgroups.journal));
+    }
+    if (pubgroups.other.length > 0) {
+        sections.push('<h2>Other</h2>');
+        sections.push(exportpost(pubgroups.other));
+    }
+
+    outbox.value = sections.join('\n');
 
     if (outbox.value.length > 0) {
         setstatus('Generated post content.');
