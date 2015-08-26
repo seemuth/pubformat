@@ -77,7 +77,7 @@ function datainchange(inbox)
             other: [],
     };
 
-    var outbox = document.getElementById('dataout');
+    var output = document.getElementById('output');
     var publications = importbib(inbox.value);
     var pubgroups = {};
 
@@ -85,7 +85,7 @@ function datainchange(inbox)
         pubgroups[k] = [];
     }
 
-    outbox.value = '';
+    output.innerHTML = '';
 
     publications.sort(pubsortcompare);
 
@@ -117,9 +117,9 @@ function datainchange(inbox)
         sections.push(exportpost(pubgroups.other));
     }
 
-    outbox.value = sections.join('\n');
+    output.innerHTML = sections.join('\n');
 
-    if (outbox.value.length > 0) {
+    if (output.innerHTML.length > 0) {
         setstatus('Generated post content.');
     } else {
         setstatus('Error generating post content!');
