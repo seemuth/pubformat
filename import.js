@@ -7,16 +7,6 @@ function valuefilter(v)
     v = v.replace(/^{(.*)},?$/, '$1');
 
     var reps = [
-        ['/\\%/g', '%'],
-        [/\\&/g, '&amp;'],
-        [/---/g, '&mdash;'],
-        [/--/g, '&ndash;'],
-        [/"/g, '&quot;'],
-        [/“/g, '&ldquo;'],
-        [/“/g, '&ldquo;'],
-        [/‘/g, '&rsquo;'],
-        [/’/g, '&rsquo;'],
-
         [/{?\\(["'`~^])\\*(({[^}]+})|[^{])}?/g,
             function(fullmatch, mark, sub) {
                 var debug = false;
@@ -49,6 +39,16 @@ function valuefilter(v)
                 ].join('');
             }
         ],
+
+        ['/\\%/g', '%'],
+        [/\\&/g, '&amp;'],
+        [/---/g, '&mdash;'],
+        [/--/g, '&ndash;'],
+        [/"/g, '&quot;'],
+        [/“/g, '&ldquo;'],
+        [/“/g, '&ldquo;'],
+        [/‘/g, '&rsquo;'],
+        [/’/g, '&rsquo;'],
     ];
 
     for (var i = 0; i < reps.length; i++) {
