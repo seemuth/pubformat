@@ -43,11 +43,19 @@ function pubtopost(pubdata)
 // system (CMS)
 function exportpost(publist)
 {
+    var owner = document.getElementById('owner').value.trim();
     var ret = [];
     ret.push('<ol class="publications">');
 
     for (var i = 0; i < publist.length; i++) {
-        ret.push('<li>' + pubtopost(publist[i]) + '</li>');
+        var pubclass = classify(publist[i], owner);
+        ret.push(
+            '<li class="' +
+            pubclass +
+            '">' +
+            pubtopost(publist[i]) +
+            '</li>'
+        );
     }
 
     ret.push('</ol>');
