@@ -44,6 +44,7 @@ function filterpub(pub, owner)
         ownername: filter_ownername,
         noyear: filter_noyear,
         thesis: filter_thesis,
+        erratum: filter_erratum,
     };
 
     for (var filtername in filters) {
@@ -107,6 +108,19 @@ function filter_thesis(pub)
 {
     var pubtype = pub['@'].toLowerCase();
     if (pubtype.substr(pubtype.length-6) == 'thesis') {
+        return -1;
+    }
+
+    return 0;
+}
+
+
+// filter_erratum determines if the publication is an erratum
+function filter_erratum(pub)
+{
+    var search = 'erratum:';
+
+    if (pub.title.toLowerCase().substr(0, search.length) == search) {
         return -1;
     }
 
