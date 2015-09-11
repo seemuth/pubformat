@@ -67,6 +67,7 @@ function setstatus(message)
 function datainchange(inbox)
 {
     var pubtypes = {
+            abstracts: [],
             conference: [
                 'inproceedings',
             ],
@@ -76,6 +77,20 @@ function datainchange(inbox)
             ],
             other: [],
     };
+
+    if (! config.splitConferenceJournal) {
+        pubtypes.papers = [];
+
+        for (var i = 0; i < pubtypes.conference.length; i++) {
+            pubtypes.papers.push(pubtypes.conference[i]);
+        }
+        for (var i = 0; i < pubtypes.journal.length; i++) {
+            pubtypes.papers.push(pubtypes.journal[i]);
+        }
+
+        delete pubtypes.conference;
+        delete pubtypes.journal;
+    }
 
     var output = document.getElementById('output');
     var publications = importbib(inbox.value);
@@ -99,20 +114,32 @@ function datainchange(inbox)
             }
         }
 
+        if (pubisabstract(pub)) {
+            ingroup = 'abstracts';
+        }
+
         pubgroups[ingroup].push(pub);
     }
 
     var sections = [];
 
-    if (pubgroups.conference.length > 0) {
+    if ((pubgroups.conference != undefined) && (pubgroups.conference.length > 0)) {
         sections.push('<h2>Conference Papers</h2>');
         sections.push(exportpost(pubgroups.conference));
     }
-    if (pubgroups.journal.length > 0) {
+    if ((pubgroups.journal != undefined) && (pubgroups.journal.length > 0)) {
         sections.push('<h2>Journal Articles</h2>');
         sections.push(exportpost(pubgroups.journal));
     }
-    if (pubgroups.other.length > 0) {
+    if ((pubgroups.papers != undefined) && (pubgroups.papers.length > 0)) {
+        sections.push('<h2>Papers</h2>');
+        sections.push(exportpost(pubgroups.papers));
+    }
+    if ((pubgroups.abstracts != undefined) && (pubgroups.abstracts.length > 0)) {
+        sections.push('<h2>Abstracts</h2>');
+        sections.push(exportpost(pubgroups.abstracts));
+    }
+    if ((pubgroups.other != undefined) && (pubgroups.other.length > 0)) {
         sections.push('<h2>Other</h2>');
         sections.push(exportpost(pubgroups.other));
     }

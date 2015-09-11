@@ -120,3 +120,18 @@ function pubsortcompare(a, b)
         return 1;
     }
 }
+
+
+// pubisabstract returns true if the given publication is an abstract
+function pubisabstract(pub)
+{
+    if (pub.booktitle == undefined) {
+        return false;
+    }
+
+    if (pub.booktitle.toLowerCase().indexOf('abstract') >= 0) {
+        return true;
+    }
+
+    return false;
+}
