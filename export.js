@@ -20,19 +20,45 @@ function pubtopost(pubdata)
     }
 
     var comment = '<!--' + pubdata['@'] + '-->';
-    parts.push(splitauthors(pubdata.author));
-    parts.push('<strong>' + pubdata.title + '</strong>');
 
-    if (collection != undefined) {
-        parts.push('<em>' + collection + '</em>');
-    }
+    switch (config.citationFormat) {
+        case 1:
+            parts.push('<strong>' + pubdata.title + '</strong>');
+            parts.push(splitauthors(pubdata.author));
 
-    if (pubdata.year != undefined) {
-        parts.push('(' + pubdata.year + ')');
-    }
+            if (collection != undefined) {
+                parts.push('<em>' + collection + '</em>');
+            }
 
-    if (pubdata.note != undefined) {
-        parts.push('<span class="pub-note">' + pubdata.note + '</span>');
+            if (pubdata.pages != undefined) {
+                parts.push(pubdata.pages);
+            }
+
+            if (pubdata.year != undefined) {
+                parts.push('(' + pubdata.year + ')');
+            }
+
+            if (pubdata.note != undefined) {
+                parts.push('<span class="pub-note">' + pubdata.note + '</span>');
+            }
+
+            break;
+
+        default:
+            parts.push(splitauthors(pubdata.author));
+            parts.push('<strong>' + pubdata.title + '</strong>');
+
+            if (collection != undefined) {
+                parts.push('<em>' + collection + '</em>');
+            }
+
+            if (pubdata.year != undefined) {
+                parts.push('(' + pubdata.year + ')');
+            }
+
+            if (pubdata.note != undefined) {
+                parts.push('<span class="pub-note">' + pubdata.note + '</span>');
+            }
     }
 
     return comment + parts.join('. ');
