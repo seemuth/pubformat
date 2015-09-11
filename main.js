@@ -99,7 +99,7 @@ function datainchange(inbox)
             }
         }
 
-        pubgroups[k].push(pub);
+        pubgroups[ingroup].push(pub);
     }
 
     var sections = [];
