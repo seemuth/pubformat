@@ -19,7 +19,12 @@ function pubtopost(pubdata)
         collection = pubdata.journal;
     }
 
-    var comment = '<!--' + pubdata['@'] + '-->';
+    var alldata = [];
+    for (var k in pubdata) {
+        alldata.push(k + ' = ' + pubdata[k]);
+    }
+
+    var comment = '<!--\n' + alldata.join('\n') + '\n-->';
 
     switch (config.citationFormat) {
         case 1:
