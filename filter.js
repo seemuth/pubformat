@@ -1,7 +1,7 @@
 // classify determines the appearance class for the given publication
-function classify(pub, owner)
+function classify(pub, owner, oldyear)
 {
-    var filterret = filterpub(pub, owner);
+    var filterret = filterpub(pub, owner, oldyear);
     var ret = [];
 
     if ((filterret.pos.length > 0) && (filterret.neg.length > 0)) {
@@ -34,7 +34,7 @@ function classify(pub, owner)
 // filterpub attempts to dermine whether or not the given publication should
 // actually be included in the list of publications
 // owner is the last name of the publication list's owner
-function filterpub(pub, owner)
+function filterpub(pub, owner, oldyear)
 {
     var retpos = [];
     var retzero = [];
@@ -43,13 +43,14 @@ function filterpub(pub, owner)
     var filters = {
         ownername: filter_ownername,
         noyear: filter_noyear,
+        oldyear: filter_oldyear,
         thesis: filter_thesis,
         erratum: filter_erratum,
     };
 
     for (var filtername in filters) {
         var filterfunc = filters[filtername];
-        var filterret = filterfunc(pub, owner);
+        var filterret = filterfunc(pub, owner, oldyear);
 
         if (filterret > 0) {
             retpos.push(filtername);
@@ -121,6 +122,21 @@ function filter_erratum(pub)
     var search = 'erratum:';
 
     if (pub.title.toLowerCase().substr(0, search.length) == search) {
+        return -1;
+    }
+
+    return 0;
+}
+
+
+// filter_oldyear determines if a publication is too old
+function filter_oldyear(pub, owner, oldyear)
+{
+    if (pub.year == undefined) {
+        return 0;
+    }
+
+    if (pub.year < oldyear) {
         return -1;
     }
 
