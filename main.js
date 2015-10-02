@@ -75,6 +75,9 @@ function datainchange(inbox)
                 'article',
                 'incollection',
             ],
+            patents: [
+                'misc',
+            ],
             other: [],
     };
 
@@ -138,6 +141,10 @@ function datainchange(inbox)
     if ((pubgroups.abstracts != undefined) && (pubgroups.abstracts.length > 0)) {
         sections.push('<h2>Abstracts</h2>');
         sections.push(exportpost(pubgroups.abstracts));
+    }
+    if ((pubgroups.patents != undefined) && (pubgroups.patents.length > 0)) {
+        sections.push('<h2>Patents</h2>');
+        sections.push(exportpost(pubgroups.patents));
     }
     if ((pubgroups.other != undefined) && (pubgroups.other.length > 0)) {
         sections.push('<h2>Other</h2>');
