@@ -5,8 +5,16 @@
             <textarea id="datain" rows="20" cols="90" onchange="datainchange(this)" onkeyup="datainchange(this)" onfocus="this.select()"></textarea>
         </div>
         <div class="params">
-            Publication list owner name: <input id="owner" type="text" size="30" /><br />
+            Publication list author name: <input id="owner" type="text" size="30" /><br />
             Exclude publications published prior to year: <input id="oldyear" type="text" size="8" value="1900" /><br />
+            <label><input type="checkbox" id="filter_ownername" value="true" checked="checked" />Require author name</label><br />
+            <label><input type="checkbox" id="filter_noyear" value="true" checked="checked" />Require publication year</label><br />
+            <label><input type="checkbox" id="filter_thesis" value="true" checked="checked" />Exclude Master's and PhD theses</label><br />
+            <label><input type="checkbox" id="filter_erratum" value="true" checked="checked" />Exclude errata</label><br />
+            <label><input type="checkbox" id="filter_correction" value="true" checked="checked" />Exclude corrections</label><br />
+            <label><input type="checkbox" id="filter_longtitleperiod" value="true" checked="checked" />Exclude very long titles that also contain a period</label><br />
+            <label><input type="checkbox" id="filter_techreport" value="true" checked="checked" />Exclude &quot;techreports&quot; entries</label><br />
+            <label><input type="checkbox" id="filter_book" value="true" checked="checked" />Exclude books</label><br />
         </div>
     </div>
     <div class="status"><span id="status"></span></div>

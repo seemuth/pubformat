@@ -64,8 +64,28 @@ function setstatus(message)
 }
 
 
+// updateconfig updates the configuration settings from the parameter inputs
+function updateconfig()
+{
+    for (var k in config.filters) {
+        var el = document.getElementById('filter_' + k);
+        if (el == null) {
+            continue;
+        }
+
+        if (el.checked) {
+            config.filters[k] = true;
+        } else {
+            config.filters[k] = false;
+        }
+    }
+}
+
+
 function datainchange(inbox)
 {
+    updateconfig();
+
     var pubtypes = {
             abstracts: [],
             conference: [
