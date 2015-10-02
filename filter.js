@@ -163,8 +163,6 @@ function filter_correction(pub)
 // that contains a period
 function filter_longtitleperiod(pub)
 {
-    var THRESH_NUM_WORDS = 30;
-
     if (pub.title.indexOf('.') < 0) {
         // No period in title.
         return 0;
@@ -179,7 +177,7 @@ function filter_longtitleperiod(pub)
         }
     }
 
-    if (numwords > THRESH_NUM_WORDS) {
+    if (numwords > config.longTitleWords) {
         return -1;
     }
 
