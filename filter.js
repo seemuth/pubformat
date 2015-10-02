@@ -50,6 +50,7 @@ function filterpub(pub, owner, oldyear)
         longtitleperiod: filter_longtitleperiod,
         miscpatent: filter_miscpatent,
         techreport: filter_techreport,
+        book: filter_book,
     };
 
     for (var filtername in filters) {
@@ -206,6 +207,17 @@ function filter_miscpatent(pub)
 function filter_techreport(pub)
 {
     if (pub['@'] == 'techreport') {
+        return -1;
+    }
+
+    return 0;
+}
+
+
+// filter_book determines if the publication is a book
+function filter_book(pub)
+{
+    if (pub['@'] == 'book') {
         return -1;
     }
 
