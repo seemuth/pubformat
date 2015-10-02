@@ -79,6 +79,20 @@ function updateconfig()
             config.filters[k] = false;
         }
     }
+
+    var checkboxkeys = [
+        'colorCode',
+        'showAll',
+    ];
+    for (var i = 0; i < checkboxkeys.length; i++) {
+        var k = checkboxkeys[i];
+        var el = document.getElementById(k);
+        if (el.checked) {
+            config[k] = true;
+        } else {
+            config[k] = false;
+        }
+    }
 }
 
 
