@@ -54,6 +54,10 @@ function filterpub(pub, owner, oldyear)
     };
 
     for (var filtername in filters) {
+        if (! config.filters[filtername]) {
+            continue;
+        }
+
         var filterfunc = filters[filtername];
         var filterret = filterfunc(pub, owner, oldyear);
 
