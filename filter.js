@@ -46,6 +46,8 @@ function filterpub(pub, owner, oldyear)
         oldyear: filter_oldyear,
         thesis: filter_thesis,
         erratum: filter_erratum,
+        correction: filter_correction,
+        longtitleperiod: filter_longtitleperiod,
     };
 
     for (var filtername in filters) {
@@ -137,6 +139,47 @@ function filter_oldyear(pub, owner, oldyear)
     }
 
     if (pub.year < oldyear) {
+        return -1;
+    }
+
+    return 0;
+}
+
+
+// filter_correction determines if the publication is a correction
+function filter_correction(pub)
+{
+    var search = 'correction';
+
+    if (pub.title.toLowerCase().substr(0, search.length) == search) {
+        return -1;
+    }
+
+    return 0;
+}
+
+
+// filter_longtitleperiod determines if the publication has a long title
+// that contains a period
+function filter_longtitleperiod(pub)
+{
+    var THRESH_NUM_WORDS = 30;
+
+    if (pub.title.indexOf('.') < 0) {
+        // No period in title.
+        return 0;
+    }
+
+    var words = pub.title.split(' ');
+    var numwords = 0;
+
+    for (var i = 0; i < words.length; i++) {
+        if (words[i].length > 0) {
+            numwords++;
+        }
+    }
+
+    if (numwords > THRESH_NUM_WORDS) {
         return -1;
     }
 
