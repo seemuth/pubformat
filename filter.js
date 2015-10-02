@@ -49,6 +49,7 @@ function filterpub(pub, owner, oldyear)
         correction: filter_correction,
         longtitleperiod: filter_longtitleperiod,
         miscpatent: filter_miscpatent,
+        techreport: filter_techreport,
     };
 
     for (var filtername in filters) {
@@ -195,6 +196,17 @@ function filter_miscpatent(pub)
         } else {
             return -1;
         }
+    }
+
+    return 0;
+}
+
+
+// filter_techreport determines if the publication is a techreport
+function filter_techreport(pub)
+{
+    if (pub['@'] == 'techreport') {
+        return -1;
     }
 
     return 0;
