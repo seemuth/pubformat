@@ -48,6 +48,7 @@ function filterpub(pub, owner, oldyear)
         erratum: filter_erratum,
         correction: filter_correction,
         longtitleperiod: filter_longtitleperiod,
+        miscpatent: filter_miscpatent,
     };
 
     for (var filtername in filters) {
@@ -179,6 +180,21 @@ function filter_longtitleperiod(pub)
 
     if (numwords > config.longTitleWords) {
         return -1;
+    }
+
+    return 0;
+}
+
+
+// filter_miscpatent determines if the publication is a patent
+function filter_miscpatent(pub)
+{
+    if (pub['@'] == 'misc') {
+        if (pub.note.search(/patent/i) >= 0) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
     return 0;
