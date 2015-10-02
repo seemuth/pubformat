@@ -72,30 +72,23 @@ function pubtopost(pubdata)
 
 // exportpost formats a publication list for posting to a content-management
 // system (CMS)
-function exportpost(publist)
+function exportpost(publist, owner, oldyear)
 {
-    var owner = document.getElementById('owner').value.trim();
-    var oldyear = parseInt(document.getElementById('oldyear').value.trim(), 10);
-
-    if (oldyear > 0) {
-        document.getElementById('oldyear').style.backgroundColor = '';
-    } else {
-        document.getElementById('oldyear').style.backgroundColor = '#ffcfcf';
-    }
-
     var ret = [];
 
     ret.push('<ol class="publications">');
 
     for (var i = 0; i < publist.length; i++) {
-        var pubclass = classify(publist[i], owner, oldyear);
+        var pubclass = '';
+        if (config.colorCode) {
+            pubclass = ' class="' + classify(publist[i], owner, oldyear) + '"';
+        }
+
         ret.push(
-            '<li class="' +
-            pubclass +
-            '">' +
-            pubtopost(publist[i]) +
-            '</li>'
-        );
+                '<li' + pubclass + '>' +
+                pubtopost(publist[i]) +
+                '</li>'
+                );
     }
 
     ret.push('</ol>');

@@ -14,4 +14,6 @@ config = {
         techreport: true,
         book: false,
     },
+    colorCode: true,
+    showAll: true,
 };

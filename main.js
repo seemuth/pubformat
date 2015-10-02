@@ -86,6 +86,15 @@ function datainchange(inbox)
 {
     updateconfig();
 
+    var owner = document.getElementById('owner').value.trim();
+    var oldyear = parseInt(document.getElementById('oldyear').value.trim(), 10);
+
+    if (oldyear > 0) {
+        document.getElementById('oldyear').style.backgroundColor = '';
+    } else {
+        document.getElementById('oldyear').style.backgroundColor = '#ffcfcf';
+    }
+
     var pubtypes = {
             abstracts: [],
             conference: [
@@ -129,6 +138,17 @@ function datainchange(inbox)
 
     for (var i in publications) {
         var pub = publications[i];
+        var filterret = filterpub(pub, owner, oldyear);
+        var show = false;
+
+        if (config.showAll) {
+            show = true;
+        } else {
+            if ((filterret.pos.length > 0) && (filterret.neg.length == 0)) {
+                show = true;
+            }
+        }
+
         var ingroup = 'other';
         for (var k in pubtypes) {
             if (pubtypes[k].indexOf(pub['@']) >= 0) {
@@ -141,34 +161,36 @@ function datainchange(inbox)
             ingroup = 'abstracts';
         }
 
-        pubgroups[ingroup].push(pub);
+        if (show) {
+            pubgroups[ingroup].push(pub);
+        }
     }
 
     var sections = [];
 
     if ((pubgroups.conference != undefined) && (pubgroups.conference.length > 0)) {
         sections.push('<h2>Conference Papers</h2>');
-        sections.push(exportpost(pubgroups.conference));
+        sections.push(exportpost(pubgroups.conference, owner, oldyear));
     }
     if ((pubgroups.journal != undefined) && (pubgroups.journal.length > 0)) {
         sections.push('<h2>Journal Articles</h2>');
-        sections.push(exportpost(pubgroups.journal));
+        sections.push(exportpost(pubgroups.journal, owner, oldyear));
     }
     if ((pubgroups.papers != undefined) && (pubgroups.papers.length > 0)) {
         sections.push('<h2>Papers</h2>');
-        sections.push(exportpost(pubgroups.papers));
+        sections.push(exportpost(pubgroups.papers, owner, oldyear));
     }
     if ((pubgroups.abstracts != undefined) && (pubgroups.abstracts.length > 0)) {
         sections.push('<h2>Abstracts</h2>');
-        sections.push(exportpost(pubgroups.abstracts));
+        sections.push(exportpost(pubgroups.abstracts, owner, oldyear));
     }
     if ((pubgroups.patents != undefined) && (pubgroups.patents.length > 0)) {
         sections.push('<h2>Patents</h2>');
-        sections.push(exportpost(pubgroups.patents));
+        sections.push(exportpost(pubgroups.patents, owner, oldyear));
     }
     if ((pubgroups.other != undefined) && (pubgroups.other.length > 0)) {
         sections.push('<h2>Other</h2>');
-        sections.push(exportpost(pubgroups.other));
+        sections.push(exportpost(pubgroups.other, owner, oldyear));
     }
 
     output.innerHTML = sections.join('\n');
