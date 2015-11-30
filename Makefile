@@ -1,4 +1,4 @@
-MAINOUT := convertgs2wp.html
+MAINOUT := pubformat.html
 HTMLPREFILES := header.html main.html prescript.html
 HTMLPOSTFILES := postscript.html version.html footer.html
 HTMLFILES := $(HTMLPREFILES) $(HTMLPOSTFILES)
