@@ -1,5 +1,5 @@
 MAINOUT := pubformat.html
-HTMLPREFILES := header.html main.html prescript.html
+HTMLPREFILES := header.html license.html main.html prescript.html
 HTMLPOSTFILES := postscript.html version.html footer.html
 HTMLFILES := $(HTMLPREFILES) $(HTMLPOSTFILES)
 JSFILES := config.js import.js export.js filter.js main.js
@@ -17,6 +17,11 @@ $(MAINOUT) : $(INPUTFILES)
 
 %.mjs : %.js
 	$(MINIFY) $< > $@
+
+license.html: LICENSE
+	echo '<!--' > $@
+	cat $< >> $@
+	echo '-->' >> $@
 
 .PHONY: clean
 clean:
