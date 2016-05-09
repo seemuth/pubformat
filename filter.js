@@ -86,7 +86,13 @@ function filterpub(pub, owner, oldyear)
 function filter_ownername(pub, owner)
 {
     var ret = -1;
-    var authors = pub.author.split(' and ');
+    var authors;
+
+    if (pub.author == undefined) {
+        return 0;
+    }
+
+    authors = pub.author.split(' and ');
 
     owner = owner.toLowerCase();
 
@@ -130,6 +136,10 @@ function filter_erratum(pub)
 {
     var search = 'erratum:';
 
+    if (pub.title == undefined) {
+        return 0;
+    }
+
     if (pub.title.toLowerCase().substr(0, search.length) == search) {
         return -1;
     }
@@ -158,6 +168,10 @@ function filter_correction(pub)
 {
     var search = 'correction';
 
+    if (pub.title == undefined) {
+        return 0;
+    }
+
     if (pub.title.toLowerCase().substr(0, search.length) == search) {
         return -1;
     }
@@ -170,6 +184,10 @@ function filter_correction(pub)
 // that contains a period
 function filter_longtitleperiod(pub)
 {
+    if (pub.title == undefined) {
+        return 0;
+    }
+
     if (pub.title.indexOf('.') < 0) {
         // No period in title.
         return 0;
@@ -196,6 +214,10 @@ function filter_longtitleperiod(pub)
 function filter_miscpatent(pub)
 {
     if (pub['@'] == 'misc') {
+        if (pub.note == undefined) {
+            return -1;
+        }
+
         if (pub.note.search(/patent/i) >= 0) {
             return 1;
         } else {
